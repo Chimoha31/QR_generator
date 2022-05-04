@@ -1,12 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-
+    <div className="bg-gradient-to-r from-cyan-100 to-blue-200 h-screen pt-36 px2">
+      <div className="container mx-auto max-w-4xl bg-white rounded-md shadow">
+        <div className="md:grid md:grid-cols-3">
+          <h1>Input</h1>
+          <h1>QR Code</h1>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
