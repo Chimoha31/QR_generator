@@ -14,6 +14,20 @@ const App = () => {
     setInputValue
   }
 
+  const config = {
+    headers: {Authorization: "Bearer 095ff770-cc10-11ec-b8cd-09f1665d998c"}
+  }
+
+  const bodyParameters = {
+    "colorDark": inputValue.color,
+    "qrCategory": "url",
+    "text": inputValue.url
+  }
+
+  const getQrCode = async () => {
+    const data = await fetch()
+  }
+
   return (
     <div className="bg-gradient-to-r from-cyan-100 to-blue-200 h-screen pt-36 px2">
       <div className="container mx-auto max-w-4xl bg-white rounded-md shadow">
