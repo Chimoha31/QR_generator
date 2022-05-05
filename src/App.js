@@ -1,35 +1,54 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { InputContext } from "./components/context/Context";
 import InputForm from "./components/InputForm";
 import QrCode from "./components/QrCode";
 
 const App = () => {
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     url: "",
     color: "",
   });
 
-  const value = {
-    inputValue,
-    setInputValue
-  }
-
   const config = {
-    headers: {Authorization: "Bearer 095ff770-cc10-11ec-b8cd-09f1665d998c"}
-  }
-
+    headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` },
+  };
+  
   const bodyParameters = {
-    "colorDark": inputValue.color,
-    "qrCategory": "url",
-    "text": inputValue.url
-  }
-
+    colorDark: inputValue.color,
+    qrCategory: "url",
+    text: inputValue.url,
+  };
+  
   const getQrCode = async () => {
-    const data = await fetch()
-  }
-
-  return (
-    <div className="bg-gradient-to-r from-cyan-100 to-blue-200 h-screen pt-36 px2">
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "https://qrtiger.com/api/qr/static",
+        bodyParameters,
+        config
+        );
+        setResponse(res.data.url);
+      } catch (e) {
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    const value = {
+      inputValue,
+      setInputValue,
+      getQrCode,
+      response,
+      error,
+      loading,
+    };
+    return (
+      <div className="bg-gradient-to-r from-cyan-100 to-blue-200 h-screen pt-36 px2">
       <div className="container mx-auto max-w-4xl bg-white rounded-md shadow">
         <div className="md:grid md:grid-cols-3">
           <InputContext.Provider value={value}>
